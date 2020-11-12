@@ -1,0 +1,75 @@
+.form {
+    position: fixed;
+    top:10%;
+    z-index: 110;
+    display:flex;
+    background-color: #FFFFFF;
+    padding:40px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 30px rgb(142, 142, 206);
+    flex-direction: column;
+    width:800px;
+}
+
+.form input {
+    font-size: 20px;
+    height:40px;
+    margin-top:5px;
+    padding-left: 5px;
+    border:1px solid #c9c9c9;
+    border-radius: 10px;
+    color:#555555;
+}
+
+.form input:focus{
+    background-color:#e6e6e6;
+    border-color: #1877f2;
+    box-shadow: 0 0 0 4px #e7f3ff;
+}
+
+label {
+    text-align: left;
+    margin-top:5px;
+    font-size: 18px;
+    padding-left: 5px;
+    height:32px;
+    background-color: #FFFFFF;
+    border:1px solid #c9c9c9;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+textarea {
+    height:400px;
+    font-size:18px;
+    margin-top: 5px;
+    padding-left: 5px;
+    border:1px solid #c9c9c9;
+    border-radius: 10px;
+    color:#555555;
+}
+
+button {
+    height: 40px;
+    width: 200px;
+    margin: 20px auto;
+    background-color: gold;
+    border: 1px solid black;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 2px 2px 20px grey;
+}
+
+button:hover{
+    background-color: rgba(231, 200, 25, 0.829);
+}
+
+@media only screen and (max-width:1870px) {
+    .form {
+        width:90%;
+        padding:20px;
+    }
+    textarea {
+        height:200px;
+    }
+}
