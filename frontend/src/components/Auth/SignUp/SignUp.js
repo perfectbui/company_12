@@ -25,7 +25,7 @@ const SignUp = (props) => {
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
   };
-aa
+
   return (
     <Aux>
       <form className="form-signup">
