@@ -10,12 +10,13 @@ const Post = (props) => {
   const [address, setAddress] = useState();
   const [date, setDate] = useState();
   const [image, setImage] = useState();
+    const [content,setContent]= useState();
 
   const postHandler = (event) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append('image',image);
-    Axios.post("/api/post", { name, address, date, formData })
+    Axios.post("/api/post", { name, address, date,content, formData })
         .then(response => console.log (response))
         .catch(error => console.log(error));
   };
@@ -53,6 +54,7 @@ const Post = (props) => {
         <textarea
           className="txt-introduce"
           placeholder="Introduce about your company..."
+          onChange={(event)=>setContent(event.target.value)}
         />
         <button className="btn-post" onClick={(event) => postHandler(event)}>
           POST
