@@ -5,8 +5,10 @@ import Aux from "../../../hoc/Auxiliary";
 import Axios from "axios";
 
 const SignIn = (props) => {
+
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [error,setError] = useState(false);
 
   const signUpHandler = () => {
     props.history.push("/signup");
@@ -15,13 +17,17 @@ const SignIn = (props) => {
   const onSubmitHandler = (event) => {
     event.preventDefault();
     Axios.post("/api/signin", { email, password })
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+      .then((response) => props.history.push("/"))
+      .catch((error) => {
+        setError(true);
+        setTimeout(()=>setError(false),2000);
+      });
   };
 
   return (
     <Aux>
       <form className="form-signin">
+        {error ? <div className="signin-fail">Sign In Failed !!!</div> : null}
         <h2>SIGN IN</h2>
         <input
           type="email"

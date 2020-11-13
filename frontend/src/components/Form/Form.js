@@ -1,24 +1,37 @@
 import React, { useState, useEffect } from "react";
 
-import "./Post.css";
+import "./Form.css";
 import Aux from "../../hoc/Auxiliary";
-import Backdrop from "../../components/UI/Backdrop/Backdrop";
+import Backdrop from "../UI/Backdrop/Backdrop";
 import Axios from "axios";
 
-const Post = (props) => {
+const Form = (props) => {
   const [name, setName] = useState();
   const [address, setAddress] = useState();
   const [date, setDate] = useState();
   const [image, setImage] = useState();
-    const [content,setContent]= useState();
+  const [content, setContent] = useState();
 
   const postHandler = (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append('image',image);
-    Axios.post("/api/post", { name, address, date,content, formData })
-        .then(response => console.log (response))
-        .catch(error => console.log(error));
+    formData.append("image", image);
+    Axios.post({
+      method: "post",
+      url: "/api/uploadImg",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        Axios.post("/api/post", { name, address, date, content })
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => console.log(error));
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -54,7 +67,7 @@ const Post = (props) => {
         <textarea
           className="txt-introduce"
           placeholder="Introduce about your company..."
-          onChange={(event)=>setContent(event.target.value)}
+          onChange={(event) => setContent(event.target.value)}
         />
         <button className="btn-post" onClick={(event) => postHandler(event)}>
           POST
@@ -64,4 +77,4 @@ const Post = (props) => {
   );
 };
 
-export default Post;
+export default Form;

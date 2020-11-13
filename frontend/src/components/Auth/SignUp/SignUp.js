@@ -11,6 +11,7 @@ const SignUp = (props) => {
   const [age, setAge] = useState();
   const [phone, setPhone] = useState();
   const [address, setAddress] = useState();
+  const [error,setError] = useState(false);
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
@@ -22,13 +23,17 @@ const SignUp = (props) => {
       phone,
       address,
     })
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+      .then((response) => props.history.push("/"))
+      .catch((error) => {
+        setError(true);
+        setTimeout(()=>setError(false),2000);
+      })
   };
 
   return (
     <Aux>
       <form className="form-signup">
+        {error ? <div className="signup-fail">Sign Up Failed !!!</div> : null}
         <h2>SIGN UP</h2>
         <input
           type="text"
