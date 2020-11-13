@@ -10,38 +10,17 @@ const UserSchema = new schema({
 	password: {
 		type: String,
 	},
-	name: {
-		type: String,
-	},
-	username: {
+	userName: {
 		type: String,
 		required: true,
-	},
-	bigAvatar: {
-		type: String,
-		default:
-			'https://res.cloudinary.com/kh1em/image/upload/c_fill,h_150,w_150/v1602734766/uo0olap16ototuucubrg.png',
 	},
 	avatar: {
 		type: String,
 		default:
 			'http://res.cloudinary.com/kh1em/image/upload/c_fill,h_55,w_55/v1602734766/uo0olap16ototuucubrg.png',
 	},
-	isVerified: {
-		type: Boolean,
-		default: false,
-	},
-	lastActive: {
-		type: Date,
-		default: Date.now,
-	},
-	wallPosts: [
-		{
-			type: schema.Types.ObjectId,
-			ref: 'Post',
-		},
-	],
-	bio: String,
+	age: Number,
+	address: String,
 	phone: String,
 });
 
