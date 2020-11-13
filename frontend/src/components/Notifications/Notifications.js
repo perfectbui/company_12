@@ -1,11 +1,11 @@
 import React from 'react'
 
-const notifcations = (props) => {
+const notifications = (props) => {
     return (
         <div>
-            notifcations
+            notifications
         </div>
     )
 }
 
-export default notifcations;
+export default notifications;

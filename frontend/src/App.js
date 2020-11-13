@@ -6,6 +6,8 @@ import Layout from './components/Layout/Layout'
 import Home from './components/Home/Home'
 import Jobs from './components/Jobs/Jobs'
 import Notifications from './components/Notifications/Notifications'
+import SignIn from './components/Auth/SignIn/SignIn'
+import SignUp from './components/Auth/SignUp/SignUp'
 
 class App extends Component {
   render(){
@@ -15,6 +17,8 @@ class App extends Component {
           <Route path="/" exact component={Home} />
           <Route path="/jobs"  component={Jobs} />
           <Route path="/notifications"  component={Notifications} />
+          <Route path="/signin" component={SignIn}/> 
+          <Route path="/signup" component={SignUp}/>
         </Layout>
       </div>
     )
