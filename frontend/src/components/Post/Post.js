@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import "./Post.css";
 import Aux from "../../hoc/Auxiliary";
 import Backdrop from "../../components/UI/Backdrop/Backdrop";
+import Axios from "axios";
 
 const Post = (props) => {
   const [name, setName] = useState();
@@ -10,13 +11,14 @@ const Post = (props) => {
   const [date, setDate] = useState();
   const [image, setImage] = useState();
 
-  useEffect(() => {
-   console.log(name);
-   console.log(date);
-    return () => {
-      
-    };
-  }, [name,address,date,image]);
+  const postHandler = (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('image',image);
+    Axios.post("/api/post", { name, address, date, formData })
+        .then(response => console.log (response))
+        .catch(error => console.log(error));
+  };
 
   return (
     <Aux>
@@ -36,17 +38,25 @@ const Post = (props) => {
         <input
           type="date"
           placeholder="Date"
-          onChange={(event) => setDate(event.target.vaule)}
+          onChange={(event) => setDate(event.target.value)}
         />
-        <label htmlFor="upload-photo">Upload your company image...</label>
+        <label htmlFor="upload-photo">
+          {image ? image.name : "Upload your company image..."}
+        </label>
         <input
           id="upload-photo"
           style={{ display: "none" }}
           type="file"
           accept="image/*"
+          onChange={(event) => setImage(event.target.files[0])}
         />
-        <textarea className="txt-introduce" placeholder="Introduce about your company..." />
-        <button className="btn-post">POST</button>
+        <textarea
+          className="txt-introduce"
+          placeholder="Introduce about your company..."
+        />
+        <button className="btn-post" onClick={(event) => postHandler(event)}>
+          POST
+        </button>
       </form>
     </Aux>
   );
