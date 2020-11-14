@@ -21,7 +21,7 @@ const Form = (props) => {
 
     Axios({
       method: "post",
-      url: "/api/post/uploadImg",
+      url: "/api/posts/uploadImg",
       data: formData,
       headers: {
         "Content-Type": "multipart/form-data",
@@ -33,7 +33,7 @@ const Form = (props) => {
 
         Axios({
           method: "post",
-          url: "/api/post",
+          url: "/api/posts",
           data: { name, address, date, content, image },
           headers: {
             "X-Requested-with": "XMLHttpRequest",

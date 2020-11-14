@@ -19,7 +19,7 @@ const Home = (props) => {
     props.saveAuth(dataUser);
     Axios({
 			method: 'get',
-			url: '/api/post/' + dataUser.email,
+			url: '/api/posts/' + dataUser.email,
 			headers: {
 				'X-Requested-with': 'XMLHttpRequest',
 			},
