@@ -16,6 +16,7 @@ const Home = (props) => {
 
   useEffect(() => {
     const dataUser = parseJwt(Cookies.get("headerAndPayload"));
+    console.log(dataUser);
     props.saveAuth(dataUser);
     Axios({
 			method: 'get',
@@ -61,7 +62,7 @@ const Home = (props) => {
           <i className="fas fa-edit fa-lg" />
           <input placeholder="Start a Post" onClick={openPostHandler} />
         </div>
-        {openPost ? <Form click={closePostHandler} show /> : null}
+        {openPost ? <Form click={closePostHandler} show/> : null}
         {dataPost ? <Posts posts={dataPost} /> : null}
       </div>
       <div className="recommend">

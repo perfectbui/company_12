@@ -1,6 +1,8 @@
 import "./App.css";
 import { Component, useEffect } from "react";
 import { Route } from "react-router-dom";
+import Cookies from "js-cookie";
+import {connect} from 'react-redux'
 
 import Layout from "./components/Layout/Layout";
 import Home from "./components/Home/Home";
@@ -9,8 +11,18 @@ import Notifications from "./components/Notifications/Notifications";
 import SignIn from "./components/Auth/SignIn/SignIn";
 import SignUp from "./components/Auth/SignUp/SignUp";
 import SignOut from "./components/Auth/SignOut/SignOut";
+import {parseJwt} from "./utils"
+import * as actions from './store/action/index'
 
 class App extends Component {
+
+  // componentDidMount() {
+  //   if (Cookies.get("headerAndPayload")) {
+  //     const dataUser = parseJwt(Cookies.get("headerAndPayload"));
+  //     this.props.saveAuth(dataUser);
+  //   }
+  // }
+
   render() {
     return (
       <div className="App">
@@ -28,4 +40,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    saveAuth: (dataUser) => dispatch(actions.saveAuth(dataUser))
+  }
+}
+
+export default connect(null,mapDispatchToProps)(App);

@@ -23,7 +23,7 @@ const SignUp = (props) => {
       phone,
       address,
     })
-      .then((response) => props.history.push("/home"))
+      .then((response) => props.history.push("/signin"))
       .catch((error) => {
         setError(true);
         setTimeout(()=>setError(false),2000);

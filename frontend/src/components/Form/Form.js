@@ -16,9 +16,6 @@ const Form = (props) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("image", image);
-
-    console.log("Post");
-
     Axios({
       method: "post",
       url: "/api/posts/uploadImg",
@@ -40,7 +37,7 @@ const Form = (props) => {
           },
         })
           .then((response) => {
-            console.log(response);
+            window.location.reload();
           })
           .catch((error) => console.log(error));
       })
