@@ -1,26 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./SignIn.css";
 import Aux from "../../../hoc/Auxiliary";
 import Axios from "axios";
+import Cookies from "js-cookie";
 
 const SignIn = (props) => {
-
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [error,setError] = useState(false);
+  const [error, setError] = useState(false);
 
   const signUpHandler = () => {
     props.history.push("/signup");
   };
 
+  useEffect(() => {
+    if (Cookies.get("headerAndPayload")) {
+      props.history.push("/home");
+    }
+    return () => {};
+  }, []);
+
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    Axios.post("/api/signin", { email, password })
-      .then((response) => props.history.push("/"))
+    Axios({
+			method: 'post',
+			url: '/api/signin',
+			data: {email,password},
+			headers: {
+				'X-Requested-with': 'XMLHttpRequest',
+			},
+		})
+      .then((response) => {
+        props.history.push("/home");
+      })
       .catch((error) => {
         setError(true);
-        setTimeout(()=>setError(false),2000);
+        setTimeout(() => setError(false), 2000);
       });
   };
 

@@ -1,9 +1,30 @@
-import React from 'react'
+import React, { useState , useEffect } from "react";
+import Axios from "axios";
 
-const jobs = (props) => {
-    return (
-        <div>Jobs</div>
-    )
-}
+import Posts from "../Home/Posts/Posts";
+import Aux from "../../hoc/Auxiliary";
 
-export default jobs;
+const Jobs = (props) => {
+  const [postsData, setPostsData] = useState();
+
+  useEffect(() => {
+    Axios({
+      method: "get",
+      url: "/api/posts",
+      headers: {
+        "X-Requested-with": "XMLHttpRequest",
+      },
+    })
+      .then((response) => {
+        setPostsData(response.posts);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    return () => {};
+  }, []);
+
+  return <Aux>{postsData ? <Posts posts={postsData} /> : null}</Aux>;
+};
+
+export default Jobs;

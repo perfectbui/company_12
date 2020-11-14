@@ -6,8 +6,7 @@ import './Posts.css'
 const Posts = (props) => {
     return (
         <div className="posts">
-        <Post/>
-        <Post/>
+            {props.posts ? props.posts.map(post => <Post name={post.name} date={post.date} image={post.image} content={post.content}/>):null}
         </div>
     )
 }

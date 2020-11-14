@@ -1,11 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./Home.css";
 import Form from "../../components/Form/Form";
-import Posts from "./Posts/Posts"
+import Posts from "./Posts/Posts";
+import Cookies from "js-cookie";
+import { parseJwt } from "../../utils";
+import Axios from "axios";
+import {connect} from 'react-redux'
+
+import * as actions from '../../store/action/index'
 
 const Home = (props) => {
   const [openPost, setOpenPost] = useState(false);
+  const [dataPost, setDataPost] = useState();
+
+  useEffect(() => {
+    const dataUser = parseJwt(Cookies.get("headerAndPayload"));
+    props.saveAuth(dataUser);
+    Axios({
+			method: 'get',
+			url: '/api/post/' + dataUser.email,
+			headers: {
+				'X-Requested-with': 'XMLHttpRequest',
+			},
+		}).then((response) => {
+        setDataPost(response.posts);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    return () => {};
+  }, []);
 
   const openPostHandler = () => {
     setOpenPost(true);
@@ -17,25 +42,27 @@ const Home = (props) => {
 
   return (
     <div className="home">
-      <div className="introduce">
-        <img src="https://jmd.im/wp-content/uploads/2017/06/blackiv_thumbnail.jpg" />
-        <div className="logo-introduce">
-          <i className="fab fa-react fa-5x"></i>
+      {props.dataUser ? (
+        <div className="introduce">
+          <img src="https://jmd.im/wp-content/uploads/2017/06/blackiv_thumbnail.jpg" />
+          <div className="logo-introduce">
+            <i className="fab fa-react fa-5x"></i>
+          </div>
+          <h2 className="hello-introduce">Welcome, {props.dataUser.userName}!</h2>
+          <ul className="information">
+            <li>Age: {props.dataUser.age}</li>
+            <li>Phone: {props.dataUser.phone}</li>
+            <li>Address: {props.dataUser.address}</li>
+          </ul>
         </div>
-        <h2 className="hello-introduce">Welcome, Hao Bui!</h2>
-        <ul className="information">
-          <li>Age: 18</li>
-          <li>Phone: 03121664</li>
-          <li>Address: 123 Hai Ba Trung</li>
-        </ul>
-      </div>
+      ) : null}
       <div className="content">
         <div className="post-wrap">
           <i className="fas fa-edit fa-lg" />
           <input placeholder="Start a Post" onClick={openPostHandler} />
         </div>
         {openPost ? <Form click={closePostHandler} show /> : null}
-        <Posts/>
+        {dataPost ? <Posts posts={dataPost} /> : null}
       </div>
       <div className="recommend">
         <h2>Add to your feed</h2>
@@ -58,4 +85,17 @@ const Home = (props) => {
   );
 };
 
-export default Home;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    saveAuth: (dataUser) => dispatch(actions.saveAuth(dataUser))
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    dataUser:state.auth.dataUser,
+    authenticated:state.auth.authenticated
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Home);
