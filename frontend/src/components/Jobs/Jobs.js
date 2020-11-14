@@ -1,10 +1,13 @@
 import React, { useState , useEffect } from "react";
 import Axios from "axios";
 
+import './Jobs.css'
 import Posts from "../Home/Posts/Posts";
 import Aux from "../../hoc/Auxiliary";
 
+
 const Jobs = (props) => {
+
   const [postsData, setPostsData] = useState();
 
   useEffect(() => {
@@ -16,7 +19,7 @@ const Jobs = (props) => {
       },
     })
       .then((response) => {
-        setPostsData(response.posts);
+        setPostsData(response.data.posts);
       })
       .catch((error) => {
         console.log(error);
@@ -24,7 +27,7 @@ const Jobs = (props) => {
     return () => {};
   }, []);
 
-  return <Aux>{postsData ? <Posts posts={postsData} /> : null}</Aux>;
+  return <div className="jobs">{postsData ? <Posts posts={postsData} /> : null}</div>;
 };
 
 export default Jobs;

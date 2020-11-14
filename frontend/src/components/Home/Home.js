@@ -24,7 +24,7 @@ const Home = (props) => {
 				'X-Requested-with': 'XMLHttpRequest',
 			},
 		}).then((response) => {
-        setDataPost(response.posts);
+        setDataPost(response.data.posts);
       })
       .catch((error) => {
         console.log(error);
@@ -39,7 +39,7 @@ const Home = (props) => {
   const closePostHandler = () => {
     setOpenPost(false);
   };
-
+  
   return (
     <div className="home">
       {props.dataUser ? (
