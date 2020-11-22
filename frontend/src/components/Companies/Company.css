@@ -1,0 +1,7 @@
+.company-list {
+    margin-top: 50px;
+    display: inline-grid;
+    grid-template-columns: auto auto auto;
+    grid-column-gap: 50px;
+    grid-row-gap: 50px;
+}

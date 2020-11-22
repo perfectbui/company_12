@@ -24,11 +24,17 @@ const NavigationItems = (props) => {
           />
         </Aux>
       ) : (
-        <NavigationItem
+        <Aux>
+          <NavigationItem
           name="Sign In"
           icon="fas fa-user fa-2x"
           link="/signin"
-        />
+          />
+          <NavigationItem
+          name="Company"
+          link="/company"
+          />
+        </Aux>
       )}
     </div>
   );

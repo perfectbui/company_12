@@ -13,6 +13,8 @@ import SignUp from './components/Auth/SignUp/SignUp';
 import SignOut from './components/Auth/SignOut/SignOut';
 import { parseJwt } from './utils';
 import * as actions from './store/action/index';
+import Companies from './components/Companies/Companies';
+import CompanyPage from './components/CompanyPage/CompanyPage'
 
 class App extends Component {
 	componentDidMount() {
@@ -33,6 +35,8 @@ class App extends Component {
 					<Route path="/home" component={Home} />
 					<Route path="/notifications" component={Notifications} />
 					<Route path="/signup" component={SignUp} />
+					<Route path="/company" component={Companies} />
+					<Route path="/companypage/:id" component={CompanyPage} />
 				</Layout>
 			</div>
 		);
